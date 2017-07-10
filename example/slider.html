@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doz测试 Slider组件</title>
+	<style type="text/css">		
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+		li {
+			list-style: none;
+		}
+		body {
+			padding: 30px;
+		}		
+		.clearfix:after{
+		  content:'\0020';
+		  display:block;
+		  height:0;
+		  clear:both
+		}
+		.clearfix{
+		  	*zoom:1
+		}
+		.list div{
+			width: 300px;
+			height: 120px;
+			line-height: 120px;
+			display: none;
+			text-align: center;
+			border: 1px solid #000;
+		}
+		.list div:first-child{
+			display: block;
+		}
+
+
+		.slider {
+			margin-top: 10px;
+			position: relative;
+			height: 302px;
+			width: 400px;
+			border: 1px solid #000;
+			overflow: hidden;			
+		}
+		.slider a{
+			position: absolute;
+			top: 130px;			
+			width: 50px;
+			height: 35px;			
+			line-height: 35px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 26px;
+			color: #000;
+		}
+
+		.slider .prev{
+			left: 0px;
+		}
+		.slider .next{
+			right: 0px;
+		}
+		.slider .content {
+			width: 1600px;
+			overflow: hidden;
+		}
+		.slider .content li {
+			float: left;
+			height: 300px;
+			width: 400px;			
+			text-align: center;
+			line-height: 300px;
+			font-size: 20px;
+		}
+		.slider .thumb{
+			position: absolute;
+			right: 15px;
+			bottom: 15px;
+		}
+		.slider .thumb li{
+			float: left;
+			width: 15px;
+			height: 15px;
+			border: 1px solid #000;
+			margin-left: 2px;
+			cursor: pointer;
+		}
+		.slider .thumb li.on{
+			border-color: #F00;
+		}
+	</style>
+</head>
+<body>
+<h3>当前是第<span id="pageNum">1</span>页</h3>
+<div id="slider" class="slider">
+	<a class="prev" href="javascript:void(0)">&lt;</a>
+	<ul class="content">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<a class="next" href="javascript:void(0)">&gt;</a>	
+	<ul class="thumb">
+		<li class="on"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="dist/jquery@3.2.1.js"></script>
+<script type="text/javascript" src="../lib/doz.js"></script>
+<script type="text/javascript">
+	
+	Doz.prototype.use(new Animate());
+
+	var Slider = new Doz({
+		state: {
+			index: 1
+		},
+		events: {
+			"#slider .prev click": function(e){
+				var index = this.getState("index");	
+				if(index == 1) {
+					return;
+				}
+
+				this.set("index", --index);
+				this.update(index);
+			},	
+			"#slider .next click": function(e){
+				var index = this.getState("index");											
+				if(index >= $("#slider .content li").length) {
+					return;
+				}
+
+				this.set("index", ++index);				
+				this.update(index);
+			},
+			"#slider .thumb li mouseover": function(e, index){
+				this.set("index", ++index);				
+				this.update();
+			}		
+		},
+		update: function(index){
+			var index = this.getState("index");			
+			$("#slider .thumb li").removeClass("on").eq(index - 1).addClass("on");
+			// $("#slider .content li").hide().eq(index).show();
+			this.sliderLeft($("#slider .content"),  (index - 1) * 402);
+		}
+	});
+
+	Slider.watch("index", function(index){
+		$("#pageNum").text(index);
+	})
+
+</script>
+</body>
+</html>

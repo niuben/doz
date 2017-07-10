@@ -1,0 +1,9 @@
+{
+  "name": "doz",
+  "version": "0.0.1",
+  "description": "一个开发UI组件工具库。",
+  "main": "lib/doz.js",
+  "repository": "https://github.com/niuben/doz",
+  "author": "niuben",
+  "license": "MIT"
+}

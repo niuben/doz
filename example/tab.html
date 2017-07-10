@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doz测试 Tab组件</title>
+	<style type="text/css">		
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+		li {
+			list-style: none;
+		}
+		body {
+			padding: 30px;
+		}
+		.head a{
+			float: left;
+			width: 120px;
+			height: 35px;
+			border: 1px solid #000;
+			line-height: 35px;
+			text-align: center;
+			text-decoration: none;
+		}
+		.head a.on{
+			font-size: 18px;
+			font-weight: bold;
+			background: #EEE; 
+		}
+
+		.clearfix:after{
+		  content:'\0020';
+		  display:block;
+		  height:0;
+		  clear:both
+		}
+		.clearfix{
+		  	*zoom:1
+		}
+		.list div{
+			width: 300px;
+			height: 120px;
+			line-height: 120px;
+			display: none;
+			text-align: center;
+			border: 1px solid #000;
+		}
+		.list div:first-child{
+			display: block;
+		}
+		#tab1 {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+<div id="tab">
+	<p class="head clearfix"><a href="#" class="on">1</a><a href="#">2</a></p>
+	<div class="list">
+		<div>content 1</div>
+		<div>content 2</div>
+	</div>
+</div>
+
+
+<div id="tab1">
+	<p>第二个Tab和第一个Tab进行联动</p>
+	<p class="head clearfix"><a href="#" class="on">1</a><a href="#">2</a></p>
+	<div class="list">
+		<div>content 1</div>
+		<div>content 2</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="dist/jquery@3.2.1.js"></script>
+<script type="text/javascript" src="../lib/doz.js"></script>
+<script type="text/javascript">
+	
+	var Tab = new Doz({
+		state: {
+			index: 1
+		},
+		events: {
+			"#tab .head a click": function(e, index){
+				$("#tab .head a").removeClass("on").eq(index).addClass("on");
+				$("#tab .list div").hide().eq(index).show();
+				this.set("index", index);
+			}	
+		}
+	});
+
+
+	var Tab1 = new Doz({
+		state: {
+			index: 1
+		},
+		events: {
+			"#tab1 .head a click": function(e, index){
+				$("#tab1 .head a").removeClass("on").eq(index).addClass("on");
+				$("#tab1 .list div").hide().eq(index).show();
+				this.set("index", index);				
+			}	
+		}
+	});
+
+
+	Tab.watch("index", function(index){
+		$("#tab1 .head a").removeClass("on").eq(index).addClass("on");
+		$("#tab1 .list div").hide().eq(index).show();
+	});
+
+</script>
+</body>
+</html>
