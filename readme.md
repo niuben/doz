@@ -8,30 +8,30 @@
 * 加载器（可以加载第三方类）
 
 ### 事件绑定
-`events`属性使用`Backbone`命名风格进行事件绑定，支持匿名函数和对象方法两种方式。
+`events`属性使用`Backbone`命名风格进行事件绑定，支持匿名函数和对象方法两种方式。  
 `Doz`会将事件的`event`对象作为第一个参量形式暴露给用户使用。如果同时绑定多个`DOM`节点，会将每个`DOM`节点序号以参量形式暴露给用户使用。
 
 代码事例：
 ```
 // 绑定匿名函数
-...
+......
 events: {
     "a click": function(e, index){
         console.log("这是超链接", index);
    }
 }
-....
+......
+
 // 绑定匿名函数
-...
+......
 events: {
     "a click": "show"
 },
 show: function(e, index){
     console.log("这是超链接", index);
 }
-....
+......
 ```
-
 
 
 ### 状态管理
@@ -39,6 +39,13 @@ show: function(e, index){
 
 代码事例:
 ```
+// 命名状态值
+......
+state: {
+    index: 1
+}
+......
+
 // 设置index状态;
 this.setState("index", 1);
 
