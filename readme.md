@@ -1,15 +1,21 @@
 ## Doz
 一个UI组件开发库。使用它可以更快开发出UI组件。它具有以下几个功能：
 
+* 事件绑定
 * 状态管理
 * 订阅/发布
 * 动画模块
 * 加载器（可以加载第三方类）
 
+### 事件绑定
+使用`Backbone`事件绑定风格，
+
+
+
 ### 状态管理
 通过`setState`和`getState`两个方法进行设置和获取状态。当进行设置状态时会触发订阅该状态的方法。
 
-代码实例:
+代码事例:
 ```
 //设置index状态;
 this.setState("index", 1);
@@ -25,7 +31,7 @@ var index = this.getState("index");
 * watch: 对状态值进行订阅;
 * unWatch: 对状态值取消订阅;
 * run: 发布状态；
-* force: 强制运行;
+* force: 强制发布;
 
 代码事例:
 ```
@@ -53,6 +59,6 @@ Tab.unWatch("index", 1);
 ```
 // 加载一个动画库
 var Animate = require("Animate");
-Doz.prototype.use(new Animate);
+Doz.prototype.use(new Animate());
 
 ```
