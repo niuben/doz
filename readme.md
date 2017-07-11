@@ -8,7 +8,29 @@
 * 加载器（可以加载第三方类）
 
 ### 事件绑定
-使用`Backbone`事件绑定风格，
+`events`属性使用`Backbone`命名风格进行事件绑定，支持匿名函数和对象方法两种方式。
+`Doz`会将事件的`event`对象作为第一个参量形式暴露给用户使用。如果同时绑定多个`DOM`节点，会将每个`DOM`节点序号以参量形式暴露给用户使用。
+
+代码事例：
+```
+// 绑定匿名函数
+...
+events: {
+    "a click": function(e, index){
+        console.log("这是超链接", index);
+   }
+}
+....
+// 绑定匿名函数
+...
+events: {
+    "a click": "show"
+},
+show: function(e, index){
+    console.log("这是超链接", index);
+}
+....
+```
 
 
 
@@ -17,10 +39,10 @@
 
 代码事例:
 ```
-//设置index状态;
+// 设置index状态;
 this.setState("index", 1);
 
-//获取index状态;
+// 获取index状态;
 var index = this.getState("index");
 
 ```
@@ -43,7 +65,7 @@ Tab.watch("index", function(index){
 // Tab组件取消订阅index
 Tab.unWatch("index");
 
-//Tab组件只取消订阅index的第一个方法
+// Tab组件只取消订阅index的第一个方法
 Tab.unWatch("index", 1);
 ```
 
